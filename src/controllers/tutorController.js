@@ -1,38 +1,73 @@
 const Tutor = require('../models/Tutor');
 
 module.exports = {
-    async addTutor(req, res) {  
-        const tutor = {
-            name: req.name,
-            phone: req.phone,
-            city: req.city,
-            about: req.about
-        }
-        //const tutorDatabase = await Tutor.create(tutor);
-        res.json(tutor);
-    },
-
-    
     async getAllTutors(req, res) {
         const tutors = await Tutor.findAll();
         res.json(tutors);
         },
 
-    async updateTutorById(req, res) {
-        const fields = {
-            name: req.name,
-            phone: req.phone,
-            city: req.city,
-            about: req.about
-        };
+    async addTutor(req, res) {  
+        const { name, phone, city, about } = req.body;
 
+        const tutorJson = {
+            name,
+            phone,
+            city,
+            about
+        }
+
+        console.log(tutorJson)
+
+        const tutor = await Tutor.create({
+            name: name,
+            phone: phone,
+            city: city,
+            about: about
+        });
+
+        res.json(tutor);
+    },
+
+    async getTutorById(req, res) {
         const id = req.params['id'];
+        const tutor = await Tutor.findByPk(id);
+
+        res.json(tutor);
+    },
+
+    async updateTutorById(req, res) {
+        const { name, phone, city, about } = req.body;
+        const id = req.params['id'];
+        
+        const fields = {
+            name,
+            phone,
+            city,
+            about
+        };
+        
         const tutor = await Tutor.update(fields, {
             where: {
                 id: id
             }
         });
+        if (tutor === null){
+            res.json({'Tutor' : 'Not Found'});
+        }
+        else{
+            res.json({'Tutor' : 'updated'})
+        }
+    },
 
-        res.json(tutor);
+    async deleteTutorById(req, res) {
+        const id = req.params['id'];
+
+        const tutor = await Tutor.destroy({
+            where: {
+                id
+            }
+        })
+
+        res.json({'Tutor' : 'Deleted'})
     }
 }

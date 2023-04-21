@@ -1,37 +1,16 @@
 const { DataTypes, Model } = require('sequelize');
-//const sequelize = require('../database/index');
 
-class Tutors extends Model {}
-
-Tutors.init({
-    id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true,
-        allowNull: false
-    },
-    name: {
-        type: DataTypes.STRING,
-        allowNull:false
-    },
-    phone: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    city: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    about: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    
-
-}, {
-    sequelize,
-    modelName: 'Tutor',
+class Tutor extends Model {
+    static init (connection) {
+        super.init({
+            name: DataTypes.STRING,
+            phone: DataTypes.STRING,
+            city: DataTypes.STRING,   
+            about: DataTypes.STRING,
+        }, {
+            sequelize: connection,
+        })
+    }
 }
-);
 
-module.exports = Tutors;
+module.exports = Tutor;
