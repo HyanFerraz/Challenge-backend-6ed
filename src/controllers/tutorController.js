@@ -9,20 +9,11 @@ module.exports = {
     async addTutor(req, res) {  
         const { name, phone, city, about } = req.body;
 
-        const tutorJson = {
+        const tutor = await Tutor.create({
             name,
             phone,
             city,
             about
-        }
-
-        console.log(tutorJson)
-
-        const tutor = await Tutor.create({
-            name: name,
-            phone: phone,
-            city: city,
-            about: about
         });
 
         res.json(tutor);

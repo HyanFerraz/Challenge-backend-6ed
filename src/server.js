@@ -1,12 +1,13 @@
 const express = require('express');
-const routes = require('./routes/tutors');
+const tutorRoutes = require('./routes/tutors');
+const sheltersRoutes = require('./routes/shelters');
 
 require('./database');
 
 const app = express();
 
 app.use(express.json());
-app.use(routes);
+app.use(tutorRoutes, sheltersRoutes);
 
 const port = 3000;
 
