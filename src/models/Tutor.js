@@ -11,6 +11,10 @@ class Tutor extends Model {
             sequelize: connection,
         })
     }
+
+    static associate(models) {
+        this.hasMany(models.Adoption, { foreignKey: 'tutorId', as: 'adoptions' });
+    }
 }
 
 module.exports = Tutor;

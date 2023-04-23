@@ -16,6 +16,7 @@ class Pet extends Model {
 
     static associate(models) {
         this.belongsTo(models.Shelter, { foreignKey: 'shelterId', as: 'shelter' });
+        this.hasOne(models.Adoption, { foreignKey: 'petId', as: 'adoption' });
     }
 }
 
