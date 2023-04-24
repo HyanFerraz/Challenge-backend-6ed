@@ -1,7 +1,7 @@
 const express = require('express');
 const routes = express.Router();
 
-const shelterController = require('../controllers/ShelterController');
+const shelterController = require('../controllers/shelterController');
 
 routes.post('/shelters/create', shelterController.addShelter);
 routes.get('/shelters/:id', shelterController.getShelterById);
